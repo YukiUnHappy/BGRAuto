@@ -142,7 +142,10 @@ namespace BGRAuto
                 dh.Add($"{CdnBase}android/{Utility.GetPackName(key)}", $"{key}.unity3d");
             }
 
-            dh.StartDownQueue();
+            if (dh.Queue.Count > 0)
+                dh.StartDownQueue();
+            else
+                Sign.Release();
         }
 
         private static void Compare()
