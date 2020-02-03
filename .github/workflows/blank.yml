@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  schedule:
+    - cron: 0 2 * * 2,5
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: new
+    - name: Unpack
+      env:
+        SECURE: ${{ secrets.SECURE }}
+      shell: bash
+      run: ./unpack.sh
+    - name: Restore
+      shell: bash
+      run: |
+        curl https://downloads.rclone.org/rclone-current-windows-amd64.zip -o rclone.zip
+        unzip rclone.zip
+        mkdir ~/bin
+        echo "::add-path::$HOME\bin"
+        mv rclone-*-windows-amd64/* ~/bin
+        dotnet restore
+    - name: Build
+      run: dotnet build -c Release -o out
+    - name: Test
+      id: test
+      shell: bash
+      run: |
+        mv out/* ./
+        dotnet BGRAuto.dll
