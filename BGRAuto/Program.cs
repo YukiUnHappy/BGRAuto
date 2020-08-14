@@ -15,7 +15,7 @@ namespace BGRAuto
 {
     class Program
     {
-        private const string CdnBase = "http://ps1.str.cloudn-service.com/android_res/";
+        private const string CdnBase = "https://via.hypothes.is/http://ps1.str.cloudn-service.com/android_res/";
         private const string Version = CdnBase + "version/version-android.xml";
 
         private static readonly byte[] _aesKey = Convert.FromBase64String("ExmGM04QVp52sgGnwCwoTO+imSnWTXg5y+QrpVBCXNs=");
