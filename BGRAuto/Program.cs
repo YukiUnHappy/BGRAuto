@@ -63,7 +63,7 @@ namespace BGRAuto
 
             if (File.Exists("upload.sh"))
             {
-                var process = Process.Start("bash", "upload.sh");
+                var process = Process.Start("C:\\Program Files\\Git\\bin\\bash.exe", "upload.sh");
                 process?.WaitForExit();
             }
         }
@@ -221,7 +221,7 @@ namespace BGRAuto
         {
             if (File.Exists("download.sh"))
             {
-                var process = Process.Start("bash", "download.sh");
+                var process = Process.Start("C:\\Program Files\\Git\\bin\\bash.exe", "download.sh");
                 process?.WaitForExit();
             }
             else
