@@ -23,7 +23,7 @@ jobs:
         curl https://downloads.rclone.org/rclone-current-windows-amd64.zip -o rclone.zip
         unzip rclone.zip
         mkdir ~/bin
-        echo "::add-path::$HOME\bin"
+        echo "$HOME\bin" >> $GITHUB_PATH
         mv rclone-*-windows-amd64/* ~/bin
         dotnet restore
     - name: Build
