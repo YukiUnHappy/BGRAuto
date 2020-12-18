@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
@@ -18,7 +19,7 @@ namespace BGRAuto
 {
     class Program
     {
-        private const string CdnBase = "http://ps1.str.cloudn-service.com/android_res/";
+        private const string CdnBase = "https://sp-bg-patch.funyoursjapan.pink/android_res/";
         private const string Version = CdnBase + "version/version-android.xml";
 
         private static readonly byte[] _aesKey = Convert.FromBase64String("ExmGM04QVp52sgGnwCwoTO+imSnWTXg5y+QrpVBCXNs=");
@@ -70,6 +71,8 @@ namespace BGRAuto
 
         private static void Format()
         {
+            EnsureDir("Output");
+
             var directories = Directory.GetDirectories(".", "UIAtlas", SearchOption.AllDirectories);
             foreach (var directory in directories)
             {
@@ -247,6 +250,8 @@ namespace BGRAuto
                 .Where(s => !s.key.Contains("heroicon"))
                 .Where(s => !s.key.Contains("APK"))
                 .ToList();
+
+            Console.WriteLine(JsonSerializer.Serialize(_list.Select(s => s.key)));
         }
 
         private static XElement GetRoot(string path)
