@@ -121,7 +121,7 @@ namespace BGRAuto
             Console.WriteLine($@"{(dh.WrongNum == 0 ? "" : dh.WrongNum + "/")}{dh.FinishedNum}/{dh.TotalNum}{
                 (dh.FinishedNum + dh.WrongNum == dh.TotalNum ? " FN" : "")}");
 
-            if (dh.FinishedNum + dh.WrongNum == dh.TotalNum)
+            if (dh.Queue.Count == 0 && dh.FinishedNum + dh.WrongNum == dh.TotalNum)
                 Sign.Release();
         }
 
@@ -249,6 +249,7 @@ namespace BGRAuto
                 .Where(s => !s.key.Contains("dialog"))
                 .Where(s => !s.key.Contains("heroicon"))
                 .Where(s => !s.key.Contains("APK"))
+                .Where(s => !s.key.Contains("MERC/600") || !s.key.EndsWith("/ani")) //TODO: 404
                 .ToList();
 
             Console.WriteLine(JsonSerializer.Serialize(_list.Select(s => s.key)));
